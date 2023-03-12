@@ -8,13 +8,11 @@ function User({ name, email, phone, department, level, message }) {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Set isAdminLoggedIn state based on localStorage value
     const isAdminLogged = localStorage.getItem('isAdmin');
     if (isAdminLogged === 'true') {
       setIsAdminLoggedIn(true);
     }
 
-    // Add event listener to update isAdminLoggedIn state when localStorage changes
     const handleStorageChange = (event) => {
       if (event.key === 'isAdmin') {
         const isAdminLogged = localStorage.getItem('isAdmin');
@@ -23,7 +21,6 @@ function User({ name, email, phone, department, level, message }) {
     };
     window.addEventListener('storage', handleStorageChange);
 
-    // Cleanup function to remove event listener on unmount
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
