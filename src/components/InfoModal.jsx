@@ -30,8 +30,9 @@ function InfoModal( {handleClose}) {
             exit="exit"
        >
         <div className="upper p-5 flex justify-between items-center">
-            <div className='flex items-center justify-between py-2 px-3 bg-gray-400/25 text-gray- rounded-md w-fit gap-3 '>
-                <p className='text-gray-500'>English Club Iset</p>
+            <div className='flex items-center justify-between w-fit gap-3 '>
+                <p className='py-2 px-3 bg-gray-400/25 text-gray-500 rounded-md'>English Club Iset</p>
+                <p className='text-blue-500'>Register</p>
             </div>
             <div className='bg-gray-400/25 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer text-gray-500 hover:bg-gray-400/50 transition-all ease-in-out duration-150'
             onClick={handleClose}>X</div>
@@ -42,25 +43,25 @@ function InfoModal( {handleClose}) {
                 <p className='text-gray-500'>First Name:</p>
                 <input onChange={(e) => {
                     setName(e.target.value);
-                }} type="text" className='bg-gray-400/25 text-gray-500 py-1 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
+                }} type="text" className='bg-gray-400/25 text-gray-500 py-2 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
             </div>
             <div className="name">
                 <p className='text-gray-500'>Last Name:</p>
                 <input  onChange={(e) => {
                     setLastName(e.target.value);
-                }} type="text" className='bg-gray-400/25 text-gray-500 py-1 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
+                }} type="text" className='bg-gray-400/25 text-gray-500 py-2 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
             </div>
             <div className="email">
                 <p className='text-gray-500'>Email:</p>
                 <input  onChange={(e) => {
                     setEmail(e.target.value);
-                }} type="text" className='bg-gray-400/25 text-gray-500 py-1 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
+                }} type="text" className='bg-gray-400/25 text-gray-500 py-2 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
             </div>
             <div className="phone">
                 <p className='text-gray-500'>Phone:</p>
                 <input  onChange={(e) => {
                     setPhone(e.target.value);
-                }} type="number" className='bg-gray-400/25 text-gray-500 py-1 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
+                }} type="number" className='bg-gray-400/25 text-gray-500 py-2 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
             </div>
           </div>
           <div className="right">
@@ -68,13 +69,13 @@ function InfoModal( {handleClose}) {
                 <p className='text-gray-500'>Department:</p>
                 <input  onChange={(e) => {
                     setDepartment(e.target.value);
-                }} type="text" className='bg-gray-400/25 text-gray-500 py-1 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
+                }} type="text" className='bg-gray-400/25 text-gray-500 py-2 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
             </div>
             <div className="level">
                 <p className='text-gray-500'>Studying level:</p>
                 <input  onChange={(e) => {
                     setLevel(e.target.value);
-                }} type="text" className='bg-gray-400/25 text-gray-500 py-1 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
+                }} type="text" className='bg-gray-400/25 text-gray-500 py-2 px-2 rounded-md w-fit outline-none focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150' />
             </div>
           </div>
         </div>
@@ -82,7 +83,7 @@ function InfoModal( {handleClose}) {
             <p className='text-gray-500'>Additional Information:</p>
             <textarea  onChange={(e) => {
                     setMessage(e.target.value);
-                }} className='bg-gray-400/25 text-gray-500 py-1 px-2 outline-none rounded-md w-full h-36 focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150'></textarea>
+                }} className='bg-gray-400/25 text-gray-500 py-2 px-2 outline-none rounded-md w-full h-36 focus:bg-blue-500/25 focus:text-blue-500 focus:border border-1 border-blue-500 transition-all ease-in-out duration-150'></textarea>
         </div>
         <div className="bottom mx-10 my-5 flex self-end">
              <div onClick={ async () => {
@@ -97,7 +98,7 @@ function InfoModal( {handleClose}) {
                 }).then(() => {
                     handleClose()
                 })
-             }} className='bg-gray-400/25 py-2 px-3 w-fit rounded-full cursor-pointer text-gray-500 hover:bg-gray-400/50 transition-all ease-in-out duration-150 flex items-center gap-2'>
+             }} className='bg-blue-400/25 py-2 px-3 w-fit rounded-md cursor-pointer text-blue-500 hover:bg-blue-400/50 transition-all ease-in-out duration-150 flex items-center gap-2'>
                 Submit
                 <FaArrowRight className='inline text-lg'/>
              </div>

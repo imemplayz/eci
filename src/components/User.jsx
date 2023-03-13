@@ -2,10 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { MdEditSquare, MdDeleteForever } from 'react-icons/md';
 import { motion, AnimatePresence } from 'framer-motion';
+import DeleteModal from './DeleteModal';
+import UpdateModal from './UpdateModal';
 
-function User({ name, email, phone, department, level, message }) {
+function User({firstName, lastName, email, phone, department, level, message}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+  const openConfirmModal = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const openUpdateModal = () => {
+    setIsUpdateModalOpen(true);
+  };
+
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+  };
+
 
   useEffect(() => {
     const isAdminLogged = localStorage.getItem('isAdmin');
@@ -37,7 +58,7 @@ function User({ name, email, phone, department, level, message }) {
           <div className="w-10 h-10 bg-blue-400 rounded-full"></div>
           <div>
             <p className='font-bold'>
-              {name}
+              {firstName + ' ' + lastName}
             </p>
             <p>{email}</p> 
           </div>
@@ -82,17 +103,30 @@ function User({ name, email, phone, department, level, message }) {
                 </p>
               </div>
               <div className='flex items-center gap-2'>
-                <div className='flex items-center gap-2 bg-yellow-500/25 text-yellow-500 py-2 px-3 rounded-full cursor-pointer hover:bg-yellow-500/50 transition-all ease-in-out duration-150'>
+                <div className='flex items-center gap-2 bg-yellow-500/25 text-yellow-500 py-2 px-3 rounded-full cursor-pointer hover:bg-yellow-500/50 transition-all ease-in-out duration-150'
+                onClick={openUpdateModal}
+                >
                   <MdEditSquare/>
                   Update
                 </div>
-                <div className='flex items-center gap-2 bg-red-500/25 text-red-500 py-2 px-3 rounded-full cursor-pointer hover:bg-red-500/50 transition-all ease-in-out duration-150'>
+                <div className='flex items-center gap-2 bg-red-500/25 text-red-500 py-2 px-3 rounded-full cursor-pointer hover:bg-red-500/50 transition-all ease-in-out duration-150'
+                onClick={openConfirmModal}
+                >
                   <MdDeleteForever/>
                   Delete
                 </div>
               </div>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence initial={false} mode="wait">
+        {isConfirmModalOpen && (
+          <DeleteModal modalOpen={openConfirmModal} handleClose={closeConfirmModal} fullName= {firstName + " " + lastName} />
+        )}
+
+        {isUpdateModalOpen && (
+          <UpdateModal modalOpen={openUpdateModal} handleClose={closeUpdateModal} firstName={firstName} participantLastName={lastName} participantEmail={email} participantPhone={phone} participantDepartment={department} participantLevel={level} message={message} />
         )}
       </AnimatePresence>
     </>

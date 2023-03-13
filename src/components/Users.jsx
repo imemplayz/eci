@@ -57,7 +57,8 @@ function Users() {
           {filteredParticipants.map((participant) => (
             <User
               key={participant.id}
-              name={`${participant.FirstName} ${participant.LastName}`}
+              firstName={participant.FirstName}
+              lastName={participant.LastName}
               email={participant.Email}
               department={participant.Department}
               level={participant.Level}
