@@ -29,7 +29,7 @@ function InfoModal( {handleClose}) {
             animate="visible"
             exit="exit"
        >
-        <div className="upper p-5 flex justify-between items-center">
+        <div className="upper p-5 mt-10 md:mt-0 flex justify-between items-center">
             <div className='flex items-center justify-between w-fit gap-3 '>
                 <p className='py-2 px-3 bg-gray-400/25 text-gray-500 rounded-md'>English Club Iset</p>
                 <p className='text-blue-500'>Register</p>
@@ -37,7 +37,7 @@ function InfoModal( {handleClose}) {
             <div className='bg-gray-400/25 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer text-gray-500 hover:bg-gray-400/50 transition-all ease-in-out duration-150'
             onClick={handleClose}>X</div>
         </div>
-        <div className="mid px-10 flex justify-between gap-10">
+        <div className="mid px-10 md:flex justify-between gap-10">
           <div className="left">
             <div className="name">
                 <p className='text-gray-500'>First Name:</p>

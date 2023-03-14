@@ -84,7 +84,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="navbar mx-16 my-5 flex items-center justify-between">
+      <div className="navbar mx-14 md:mx-16 my-5 flex flex-col md:flex-row items-center justify-center md:justify-between">
         <div className="flex items-center gap-3">
           <img src={logo} alt="logo" className="w-16 h-16" />
           <h2 className="text-blue-500 font-sans">ENGLISH CLUB ISET</h2>

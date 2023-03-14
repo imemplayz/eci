@@ -37,8 +37,8 @@ function Users() {
 
   return (
     <>
-      <div className="bg-white mx-10 py-5 px-10 rounded-md flex flex-col gap-2">
-        <div className="flex items-center justify-between">
+      <div className="bg-white mx-10 py-5 md:px-10 rounded-md flex flex-col gap-2">
+        <div className="flex items-center justify-center md:justify-between">
           <div className="bg-gray-200 py-2 px-3 rounded-full flex items-center">
             <FaSearch className="text-gray-400 inline mr-2" />
             <input

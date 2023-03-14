@@ -34,7 +34,7 @@ function DeleteModal({ handleClose, fullName, docId }) {
         animate="visible"
         exit="exit"
       >
-        <div className="p-5">
+        <div className="p-5 text-xs md:text-base">
           <div className="bg-red-400/25 p-2 text-center text-red-500 flex items-center justify-center gap-2 rounded-md">
             <AiFillWarning className="text-2xl" />
             This will permanently delete all data associated with this participant.
