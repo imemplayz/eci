@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 import Backdrop from './Backdrop'
 import { FaArrowRight } from 'react-icons/fa';
 import { db } from '../firebase';
-import { doc, setDoc } from "firebase/firestore"; 
+import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore"; 
 
 const dropIn = {
     hidden: {y: "-100vh", opacity: 0},
@@ -87,17 +87,34 @@ function InfoModal( {handleClose}) {
         </div>
         <div className="bottom mx-10 my-5 flex self-end">
              <div onClick={ async () => {
-                await setDoc(doc(db, "participants", name + " " + lastName), {
+               const docRef =  await addDoc(collection(db, "participants"), {
                     FirstName: name,
                     LastName: lastName,
                     Email: email,
                     Phone: phone,
                     Department: department,
                     Level: level,
-                    Message: infoMessage
-                }).then(() => {
-                    handleClose()
+                    Message: infoMessage,
+                    Role: "Participant"
                 })
+                    const docId = docRef.id
+
+// Update the document with the ID
+const participantRef = doc(db, "participants", docId)
+await updateDoc(participantRef, {
+    FirstName: name,
+    LastName: lastName,
+    Email: email,
+    Phone: phone,
+    Department: department,
+    Level: level,
+    Message: infoMessage,
+    Role: "Participant",
+    id: docId
+}).then(() => {
+    handleClose()
+})
+                
              }} className='bg-blue-400/25 py-2 px-3 w-fit rounded-md cursor-pointer text-blue-500 hover:bg-blue-400/50 transition-all ease-in-out duration-150 flex items-center gap-2'>
                 Submit
                 <FaArrowRight className='inline text-lg'/>

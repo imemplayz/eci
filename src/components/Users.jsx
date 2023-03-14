@@ -9,6 +9,7 @@ function Users() {
   const [searchTerm, setSearchTerm] = useState("");
 
 
+
   const q = query(collection(db, "participants"));
 
   useEffect(() => {
@@ -64,6 +65,8 @@ function Users() {
               level={participant.Level}
               phone={participant.Phone}
               message={participant.Message}
+              role={participant.Role}
+              id={participant.id}
             />
           ))}
         </div>

@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import DeleteModal from './DeleteModal';
 import UpdateModal from './UpdateModal';
 
-function User({firstName, lastName, email, phone, department, level, message}) {
+function User({firstName, lastName, email, phone, department, level, message, role, id}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
 
   const openConfirmModal = () => {
     setIsConfirmModalOpen(true);
@@ -53,9 +54,9 @@ function User({firstName, lastName, email, phone, department, level, message}) {
 
   return (
     <>
-      <div className={'bg-blue-100 px-5 py-2 rounded-md flex items-center justify-between'}>
+      <div className={role === "Club Member"?'bg-purple-100 px-5 py-2 rounded-md flex items-center justify-between' :'bg-blue-100 px-5 py-2 rounded-md flex items-center justify-between'}>
         <div className='flex items-center gap-2'>
-          <div className="w-10 h-10 bg-blue-400 rounded-full"></div>
+          <div className={role === "Club Member"?"w-10 h-10 bg-purple-400 rounded-full" : "w-10 h-10 bg-blue-400 rounded-full"}></div>
           <div>
             <p className='font-bold'>
               {firstName + ' ' + lastName}
@@ -66,7 +67,8 @@ function User({firstName, lastName, email, phone, department, level, message}) {
         <div>
           {isAdminLoggedIn && (
             <div
-              className='view text-blue-400 bg-blue-400/25 rounded-full px-5 py-2 cursor-pointer hover:bg-blue-400/50 transition-all ease-in-out duration-150'
+              className={role === "Club Member"?'view text-purple-400 bg-purple-400/25 rounded-full px-5 py-2 cursor-pointer hover:bg-purple-400/50 transition-all ease-in-out duration-150'
+            : 'view text-blue-400 bg-blue-400/25 rounded-full px-5 py-2 cursor-pointer hover:bg-blue-400/50 transition-all ease-in-out duration-150'} 
               onClick={toggleExpand}
             >
               <FaArrowRight className={`inline ${isExpanded ? 'rotate-90' : ''}`}/>
@@ -84,22 +86,26 @@ function User({firstName, lastName, email, phone, department, level, message}) {
             transition={{ duration: 0.3 }}
           >
             <div className='flex justify-between items-start'>
-              <div className='flex flex-col justify-start'>
-                <p>
-                  Phone Number:
-                  <span className="font-bold"> {phone}</span>
+              <div className='flex flex-col justify-start gap-2'>
+                <p className='flex items-center gap-2'>
+                  <span className='bg-gray-400/25 py-1 px-2 rounded-md text-gray-500'>Phone Number:</span> 
+                  <span className=""> {phone}</span>
                 </p>
-                <p>
-                  Department:
-                  <span className="font-bold"> {department}</span>
+                <p className='flex items-center gap-2'>
+                  <span className='bg-gray-400/25 py-1 px-2 rounded-md text-gray-500'>Department:</span> 
+                  <span className=""> {department}</span>
                 </p>
-                <p>
-                  Level:
-                  <span className="font-bold"> {level}</span>
+                <p className='flex items-center gap-2'>
+                  <span className='bg-gray-400/25 py-1 px-2 rounded-md text-gray-500'>Level:</span> 
+                  <span className=""> {level}</span>
                 </p>
-                <p>
-                  Message:
-                  <span className="font-bold"> {message}</span>
+                <p className='flex items-center gap-2'>
+                  <span className='bg-gray-400/25 py-1 px-2 rounded-md text-gray-500'>Additional Information:</span> 
+                  <span className=""> {message}</span>
+                </p>
+                <p className='flex items-center gap-2'>
+                <span className='bg-gray-400/25 py-1 px-2 rounded-md text-gray-500'>Role:</span> 
+                  <span className={role === "Club Member"? "bg-purple-400/25 text-purple-500 border border-1 border-purple-500 py-1 px-2 rounded-md" : "bg-blue-400/25 text-blue-500 border border-1 border-blue-500 py-1 px-2 rounded-md"}> {role}</span>
                 </p>
               </div>
               <div className='flex items-center gap-2'>
@@ -122,11 +128,11 @@ function User({firstName, lastName, email, phone, department, level, message}) {
       </AnimatePresence>
       <AnimatePresence initial={false} mode="wait">
         {isConfirmModalOpen && (
-          <DeleteModal modalOpen={openConfirmModal} handleClose={closeConfirmModal} fullName= {firstName + " " + lastName} />
+          <DeleteModal modalOpen={openConfirmModal} handleClose={closeConfirmModal} fullName={firstName + " " + lastName} docId= {id} />
         )}
 
         {isUpdateModalOpen && (
-          <UpdateModal modalOpen={openUpdateModal} handleClose={closeUpdateModal} firstName={firstName} participantLastName={lastName} participantEmail={email} participantPhone={phone} participantDepartment={department} participantLevel={level} message={message} />
+          <UpdateModal modalOpen={openUpdateModal} handleClose={closeUpdateModal} firstName={firstName} participantLastName={lastName} participantEmail={email} participantPhone={phone} participantDepartment={department} participantLevel={level} message={message} docId= {id} />
         )}
       </AnimatePresence>
     </>

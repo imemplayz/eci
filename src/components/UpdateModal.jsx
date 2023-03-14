@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 import Backdrop from './Backdrop'
 import { FaArrowRight } from 'react-icons/fa';
 import { db } from '../firebase';
-import { doc, setDoc, updateDoc } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 
 const dropIn = {
     hidden: {y: "-100vh", opacity: 0},
@@ -11,71 +11,66 @@ const dropIn = {
     exit: {y: "-100vh", opacity: 0}
 }
 
-function UpdateModal( {handleClose, firstName, participantLastName, participantEmail, participantPhone, participantDepartment, participantLevel, message}) {
+function UpdateModal( {handleClose, firstName, participantLastName, participantEmail, participantPhone, participantDepartment, participantLevel, message, docId}) {
     const [name, setName] = useState('');
+    const [prevName, setPrevName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [prevLastName, setPrevLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState();
+    const [prevEmail, setPrevEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [prevPhone, setPrevPhone] = useState('');
     const [department, setDepartment] = useState('');
+    const [prevDepartment, setPrevDepartment] = useState('');
     const [level, setLevel] = useState('');
+    const [prevLevel, setPrevLevel] = useState('');
     const [infoMessage, setMessage] = useState('');
+    const [prevMessage, setPrevMessage] = useState('');
+    const [role, setRole] = useState('');
+    const [prevRole, setPrevRole] = useState('');
+
+    const getPreviousData = async () => {
+        const docRef = doc(db, "participants", docId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            setPrevName(docSnap.data().FirstName);
+            setPrevLastName(docSnap.data().LastName);
+            setPrevEmail(docSnap.data().Email);
+            setPrevPhone(docSnap.data().Phone);
+            setPrevDepartment(docSnap.data().Department);
+            setPrevLevel(docSnap.data().Level);
+            setPrevMessage(docSnap.data().Message);
+            setPrevRole(docSnap.data().Role);
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }
+
+
+          
 
     
-    const handleUpdate = async () => {
-        const docRef = doc(
-          db,
-          "participants",
-          firstName + " " + participantLastName
-        );
-      
-        const dataToUpdate = {};
-      
-        if (name) {
-          dataToUpdate.firstName = name;
-        } else {
-          dataToUpdate.firstName = firstName;
-        }
-      
-        if (lastName) {
-          dataToUpdate.lastName = lastName;
-        } else {
-          dataToUpdate.lastName = participantLastName;
-        }
-      
-        if (email) {
-          dataToUpdate.email = email;
-        } else {
-          dataToUpdate.email = participantEmail;
-        }
-      
-        if (phone) {
-          dataToUpdate.phone = phone;
-        } else {
-          dataToUpdate.phone = participantPhone;
-        }
-      
-        if (department) {
-          dataToUpdate.department = department;
-        } else {
-          dataToUpdate.department = participantDepartment;
-        }
-      
-        if (level) {
-          dataToUpdate.level = level;
-        } else {
-          dataToUpdate.level = participantLevel;
-        }
-      
-        if (infoMessage) {
-          dataToUpdate.message = infoMessage;
-        } else {
-          dataToUpdate.message = message;
-        }
-      
-        await updateDoc(docRef, dataToUpdate);
-      
-        handleClose();
-      };
+    const handleUpdate = async (e) => {
+      e.preventDefault();
+      await getPreviousData();
+      const participantRef = doc(db, "participants", docId);
+      const updates = {};
+      if (name) updates.FirstName = name;
+      if (lastName) updates.LastName = lastName;
+      if (email) updates.Email = email;
+      if (phone) updates.Phone = phone;
+      if (department) updates.Department = department;
+      if (level) updates.Level = level;
+      if (infoMessage) updates.Message = infoMessage;
+      if (role) updates.Role = role;
+      await updateDoc(participantRef, updates);
+      handleClose();
+    }
+    
+
+
       
       
       
@@ -159,6 +154,26 @@ function UpdateModal( {handleClose, firstName, participantLastName, participantE
                 }} 
                 placeholder={message}
                 className='bg-gray-400/25 text-gray-500 py-2 px-2 outline-none rounded-md w-full h-36 focus:bg-yellow-500/25 focus:text-yellow-500 focus:border border-1 border-yellow-500 transition-all ease-in-out duration-150'></textarea>
+        <div>
+          <p className='text-gray-500 flex items-center gap-2'>Role:
+          <span className={role === "Club Member"? 'text-purple-500': 'text-blue-500'}>{role}</span>
+          </p>
+          <div className='flex items-center gap-2'>
+           <div className='bg-blue-400/25 text-blue-500 py-2 px-3 rounded-md cursor-pointer hover:bg-blue-400/50 transition-all ease-in-out duration-150'
+           onClick={() => {
+                setRole('Participant');
+           }
+           }
+           >Participant</div> 
+           <div className='bg-purple-400/25 text-purple-500 py-2 px-3 rounded-md cursor-pointer hover:bg-purple-400/50 transition-all ease-in-out duration-150'
+           onClick={() => {
+            setRole('Club Member');
+       }
+       }
+       >Club Member</div> 
+          </div>
+          
+        </div>
         </div>
         <div className="bottom mx-10 my-5 flex self-end">
              <div className='bg-yellow-400/25 py-2 px-3 w-fit rounded-md cursor-pointer text-yellow-500 hover:bg-yellow-400/50 transition-all ease-in-out duration-150 flex items-center gap-2'

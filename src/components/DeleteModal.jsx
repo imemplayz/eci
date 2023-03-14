@@ -18,9 +18,9 @@ const dropIn = {
  
 
 
-function DeleteModal({ handleClose, fullName }) {
+function DeleteModal({ handleClose, fullName, docId }) {
   const handleDelete = () => {
-     const docRef = doc(db, "participants", fullName);
+     const docRef = doc(db, "participants", docId);
      deleteDoc(docRef);
      handleClose();
  }
