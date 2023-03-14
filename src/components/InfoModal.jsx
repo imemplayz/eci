@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 import Backdrop from './Backdrop'
 import { FaArrowRight } from 'react-icons/fa';
 import { db } from '../firebase';
-import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore"; 
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore"; 
 
 const dropIn = {
     hidden: {y: "-100vh", opacity: 0},

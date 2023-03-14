@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 import Backdrop from './Backdrop'
 import { FaArrowRight } from 'react-icons/fa';
 import { db } from '../firebase';
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
+import { doc, updateDoc } from "firebase/firestore"; 
 
 const dropIn = {
     hidden: {y: "-100vh", opacity: 0},
@@ -13,48 +13,17 @@ const dropIn = {
 
 function UpdateModal( {handleClose, firstName, participantLastName, participantEmail, participantPhone, participantDepartment, participantLevel, message, docId}) {
     const [name, setName] = useState('');
-    const [prevName, setPrevName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [prevLastName, setPrevLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [prevEmail, setPrevEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [prevPhone, setPrevPhone] = useState('');
     const [department, setDepartment] = useState('');
-    const [prevDepartment, setPrevDepartment] = useState('');
     const [level, setLevel] = useState('');
-    const [prevLevel, setPrevLevel] = useState('');
     const [infoMessage, setMessage] = useState('');
-    const [prevMessage, setPrevMessage] = useState('');
     const [role, setRole] = useState('');
-    const [prevRole, setPrevRole] = useState('');
-
-    const getPreviousData = async () => {
-        const docRef = doc(db, "participants", docId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            setPrevName(docSnap.data().FirstName);
-            setPrevLastName(docSnap.data().LastName);
-            setPrevEmail(docSnap.data().Email);
-            setPrevPhone(docSnap.data().Phone);
-            setPrevDepartment(docSnap.data().Department);
-            setPrevLevel(docSnap.data().Level);
-            setPrevMessage(docSnap.data().Message);
-            setPrevRole(docSnap.data().Role);
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }
-
-
-          
 
     
     const handleUpdate = async (e) => {
       e.preventDefault();
-      await getPreviousData();
       const participantRef = doc(db, "participants", docId);
       const updates = {};
       if (name) updates.FirstName = name;
